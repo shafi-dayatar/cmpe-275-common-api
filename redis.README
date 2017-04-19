@@ -1,0 +1,35 @@
+                      
+
+private Jedis localhostJedis=new Jedis("localhost",6379); //during demo day IP will change
+
+	public Jedis getLocalhostJedis() {
+		return localhostJedis;
+}
+
+
+//Server SIde
+try{
+  state.getLocalhostJedis().select(0);// uses default database 
+  
+  state.getLocalhostJedis().set("1", wm.getLeaderStatus().getLeaderHost()+":4568");// use this to set leader on redis, 
+  //should be implementd on leader server
+  System.out.println("---Redis updated---");
+
+}catch(Exception e){
+  System.out.println("---Problem with redis at HandleVoteReceived---");
+}                        
+
+
+//Client Side
+
+try{
+  state.getLocalhostJedis().select(0);// uses default database 
+  
+  state.getLocalhostJedis().get(cluster_id);// use this to get leader for cluster from redis, 
+  //should be implementd on client
+  System.out.println("---Redis updated---");
+
+}catch(Exception e){
+  System.out.println("---Problem with redis at HandleVoteReceived---");
+}                        
+
