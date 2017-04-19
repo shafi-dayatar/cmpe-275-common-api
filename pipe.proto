@@ -66,7 +66,7 @@ message Chunk{
 }
 
 message WriteRequest{
-     optional string file_id = 1;
+     optional int32 file_id = 1;
      required string filename = 2;
      optional string file_ext=3;
      optional Chunk chunk=4;
@@ -104,6 +104,7 @@ message ReadRequest{
 //and will request client to send it again.
 message WriteResponse {
     repeated int32 ChunkId=1;
+    optional string filename;
 }
 
 
