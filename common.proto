@@ -22,7 +22,7 @@ message Header {
 
    // As we need to identify message from different network, message_id would help with that. 
    // in addition with node_id, it will remain unique every time.
-   required int32 message_id = 1;  //New field Added
+   optional int32 message_id = 1;  //New field Added
    required int32 node_id = 1;
    required int64 time = 2; 
    // if the message is for a specific node, this will be set
@@ -43,6 +43,18 @@ enum TaskType{
      REQUESTWRITEFILE = 4;
      RESPONSEREADFILE = 5;
      RESPONSEWRITEFILE = 6;
+}
+
+/*
+Added Request Message(as defined previously in common.proto)
+*/
+message Request { 
+ optional Node client = 1;
+ required TaskType requestType = 3; 
+ oneof payload{
+ WriteBody rwb = 4;
+ ReadBody rrb = 5;
+ } 
 }
 
 message Chunk{
